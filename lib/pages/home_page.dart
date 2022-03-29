@@ -22,7 +22,7 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Beaconstac app"),
+        title: Text("Analytic"),
       ),
       body: Center(
         child: isBusy
