@@ -1,7 +1,7 @@
+import 'package:beaconstac_app/analytics1.dart';
 import 'package:beaconstac_app/services/auth_service.dart';
 
 import 'package:beaconstac_app/pages/login_page.dart';
-import 'package:beaconstac_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class Homepage extends StatefulWidget {
@@ -21,18 +21,16 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Analytic"),
-      ),
       body: Center(
         child: isBusy
             ? const CircularProgressIndicator()
             : isLoggedIn
-                ? Profile(
-                    logout,
-                    name == null ? "" : name as String,
-                    picture == null ? "" : picture as String,
-                    email == null ? "" : email as String)
+                ? Analytics1()
+                // Profile(
+                //     logout,
+                //     name == null ? "" : name as String,
+                //     picture == null ? "" : picture as String,
+                //     email == null ? "" : email as String)
                 : Login(loginAction,
                     errorMessage == null ? "" : errorMessage as String),
       ),

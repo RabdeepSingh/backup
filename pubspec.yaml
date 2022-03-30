@@ -38,6 +38,9 @@ dependencies:
   flutter_appauth: ^2.4.1
   flutter_secure_storage: ^5.0.2
   flutter_dotenv: ^5.0.2
+  syncfusion_flutter_charts: ^19.4.56
+  splashscreen: ^1.3.5
+  fluttertoast: ^8.0.9
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
+    - images/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -78,17 +82,21 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+      - family: Pacifico
+        fonts:
+          - asset: fonts/Pacifico-Regular.ttf
+      - family: Roboto
+        fonts:
+          - asset: fonts/RobotoCondensed-Regular.ttf
+          - asset: fonts/RobotoCondensed-Bold.ttf
+            weight: 900
+          - asset: fonts/RobotoCondensed-Light.ttf
+            weight: 300
+          - asset: fonts/RobotoCondensed-Italic.ttf
+      - family: Sriracha
+        fonts:
+          - asset: fonts/Sriracha-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
