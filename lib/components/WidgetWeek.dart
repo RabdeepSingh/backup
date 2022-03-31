@@ -11,7 +11,7 @@ Widget setScansByTimeOfDay(TextStyle styleForTitle) {
         children: [
           setHeading("Scans by time of day", styleForTitle),
           SizedBox(height: 20),
-          // SafeArea(
+          //  SafeArea(
           //   child: SingleChildScrollView(
           //     scrollDirection: Axis.horizontal,
           //     child: HeatMapCalendar(

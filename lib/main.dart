@@ -1,3 +1,4 @@
+import 'package:beaconstac_app/analytics1.dart';
 import 'package:beaconstac_app/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

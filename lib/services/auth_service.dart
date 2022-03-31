@@ -82,9 +82,9 @@ class AuthService {
       id = result.idToken;
       auth0AccessToken = result.accessToken;
       idToken = parseIdToken(result.idToken!);
-      print(idToken);
-      print(auth0AccessToken);
-      print(result.refreshToken);
+      // print(idToken);
+      // print(auth0AccessToken);
+      // print(result.refreshToken);
 
       if (result.refreshToken != null) {
         await secureStorage.write(

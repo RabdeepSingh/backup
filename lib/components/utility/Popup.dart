@@ -15,3 +15,14 @@ void showErrorMessage(int statusCode) {
       textColor: Colors.white,
       fontSize: 16.0);
 }
+
+void popUp(String msg, Color clr) {
+  Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: clr,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}

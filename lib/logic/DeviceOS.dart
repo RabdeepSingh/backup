@@ -28,7 +28,11 @@ Future<List<QRData>> setDataForDeviceOS(int timestamp1, int timestamp2) async {
     print('ERROR MSG FROM DEVICE OS :  $err');
   }
 
+  if (res.body == null) {
+    return List.empty();
+  }
   Map<String, dynamic> userData = jsonDecode(res.body);
+
   Map<String, int> pieChartFetchData = SplayTreeMap();
 
   userData['points'].forEach((n) {

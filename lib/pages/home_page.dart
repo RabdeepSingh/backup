@@ -25,12 +25,7 @@ class _HomepageState extends State<Homepage> {
         child: isBusy
             ? const CircularProgressIndicator()
             : isLoggedIn
-                ? Analytics1()
-                // Profile(
-                //     logout,
-                //     name == null ? "" : name as String,
-                //     picture == null ? "" : picture as String,
-                //     email == null ? "" : email as String)
+                ? Analytics1(logout)
                 : Login(loginAction,
                     errorMessage == null ? "" : errorMessage as String),
       ),

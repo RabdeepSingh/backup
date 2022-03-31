@@ -1,5 +1,4 @@
 import 'package:beaconstac_app/logic/subLogics/PrecisionDouble.dart';
-import 'package:flutter/material.dart';
 import 'dart:collection';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -9,7 +8,8 @@ String productImpressionDistribution =
     "https://api.beaconstac.com/reporting/2.0/?organization=$orgId&method=Products.getImpressionDistribution";
 
 int totalScan = 0;
-Future<List<DataRow>> setScanPerCity(int timestamp1, int timestamp2) async {
+Future<List<List<String>>> setScanPerCity(
+    int timestamp1, int timestamp2) async {
   var res;
   try {
     res = await http.post(
@@ -33,7 +33,6 @@ Future<List<DataRow>> setScanPerCity(int timestamp1, int timestamp2) async {
   totalScan = 0;
   userData['points'].forEach((n) {
     String nameOfCity = n[1];
-    print("here $nameOfCity");
     listCityFetchData[nameOfCity] = 0;
     for (int i = 3; i < n[2].length; i += 18) {
       listCityFetchData[nameOfCity] =
@@ -42,27 +41,15 @@ Future<List<DataRow>> setScanPerCity(int timestamp1, int timestamp2) async {
     }
   });
 
-  List<DataRow> listOfCity = [];
+  List<List<String>> listOfCity = [];
 
-  print('City Data $listCityFetchData $listCityFetchData');
   listCityFetchData.forEach((k, v) {
-    listOfCity.add(DataRow(cells: <DataCell>[
-      DataCell(Text('$k',
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              color: Color.fromARGB(255, 89, 91, 98),
-              fontWeight: FontWeight.w400))),
-      DataCell(Text('$v',
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              color: Color.fromARGB(255, 37, 149, 255),
-              fontWeight: FontWeight.w400))),
-      DataCell(Text('${toPrecision((v / totalScan) * 100)} %',
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              color: Color.fromARGB(255, 89, 91, 98),
-              fontWeight: FontWeight.w400)))
-    ]));
+    List<String> temp = [
+      k,
+      v.toString(),
+      (int.parse(toPrecision(v / totalScan)) * 100).toString()
+    ];
+    listOfCity.add(temp);
   });
 
   return listOfCity;

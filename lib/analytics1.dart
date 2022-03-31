@@ -19,7 +19,8 @@ import 'package:flutter/material.dart';
 import 'logic/subLogics/Orientation.dart';
 
 class Analytics1 extends StatefulWidget {
-  Analytics1({Key? key}) : super(key: key);
+  final logout;
+  Analytics1(this.logout);
 
   @override
   State<Analytics1> createState() => _Analytics1State();
@@ -29,21 +30,12 @@ class _Analytics1State extends State<Analytics1> {
   int timestamp1 = 0;
   int timestamp2 = 0;
 
-  final List<String> items = [
-    'Today',
-    'Yesterday',
-    'Last 7 days',
-    'Last 30 days',
-    'Last 90 days',
-    'Lifetime',
-    'Custom'
-  ];
-  String dropDownValue = 'Today';
+  String dropDownValue = 'Last 7 days';
   String dropDownValueDate = "";
 
   List<QRData> topPerf = [];
 
-  List<DataRow> listOfCity = [];
+  List<List<String>> listOfCity = [];
 
   List<QRData> ScansQRData = [];
   int scanCount = 0;
@@ -51,7 +43,7 @@ class _Analytics1State extends State<Analytics1> {
   List<QRData> pieChartData = [];
 
   List<QRData> userCountData = [];
-  int TotalUserCount = 0;
+  int userCount = 0;
 
   void setInitialValues(int timestamp1, int timestamp2) {
     // Top Performing value
@@ -61,10 +53,9 @@ class _Analytics1State extends State<Analytics1> {
             }))
         .whenComplete(() {
       setState(() {
-        setTopPerformance(topPerf, Theme.of(context).textTheme.headline1!,
-            Theme.of(context).textTheme.bodyText1!);
+        SetTopPerformance(barGraphData: topPerf);
       });
-      print('1 TOP PERFORMING : $topPerf');
+      // print('1 TOP PERFORMING : $topPerf');
     });
 
     // City Scan Value
@@ -74,10 +65,10 @@ class _Analytics1State extends State<Analytics1> {
       });
     }).whenComplete(() {
       setState(() {
-        setScansByCity(listOfCity, Theme.of(context).textTheme.headline1!,
-            Theme.of(context).textTheme.bodyText1!);
+        SetScanByCity(
+            listOfCity: listOfCity, dropDownValueDate: dropDownValueDate);
       });
-      print('2 CITY SCAN :  $listOfCity');
+      // print('2 CITY SCAN :  $listOfCity');
     });
 
     // Scan Count Value
@@ -88,42 +79,51 @@ class _Analytics1State extends State<Analytics1> {
         .whenComplete(() {
       setState(() {
         scanCount = totalScansQR;
-        setScans(ScansQRData, scanCount, Theme.of(context).textTheme.headline1!,
-            Theme.of(context).textTheme.bodyText1!);
+        SetScans(
+            scansQRData: ScansQRData,
+            scanCount: scanCount,
+            dropDownValueDate: dropDownValueDate);
       });
-      print('3 SCAN $scanCount  - $ScansQRData');
+      // print('3 SCAN $scanCount  - $ScansQRData');
     });
 
+    // Device OS
     setDataForDeviceOS(timestamp1, timestamp2)
         .then((value) => value.forEach((element) {
               pieChartData.add(element);
             }))
         .whenComplete(() {
       setState(() {
-        setDevicesUsed(
-            pieChartData,
-            Theme.of(context).textTheme.headline1!,
-            Theme.of(context).textTheme.headline3!,
-            Theme.of(context).textTheme.bodyText1!);
+        SetDevicesUsed(
+            pieChartData: pieChartData, dropDownValueDate: dropDownValueDate);
       });
-      print('4 DEVICE OS $pieChartData');
+      // print('4 DEVICE OS $pieChartData');
     });
 
-    setDataForUser(timestamp1, timestamp2)
+    // USER Count DATA
+    setDataForUser(timestamp1, timestamp2, dropDownValue)
         .then((value) => value.forEach((element) {
               userCountData.add(element);
             }))
         .whenComplete(() {
       setState(() {
-        TotalUserCount = totalUserCount;
-        setUser(
-            userCountData,
-            TotalUserCount,
-            Theme.of(context).textTheme.headline1!,
-            Theme.of(context).textTheme.bodyText1!);
+        userCount = totalUserCount;
+        SetUser(userCountData: userCountData, TotalUserCount: userCount);
       });
+      // print('5 USER : $totalUserCount - $userCountData');
     });
-    print('5 USER : $totalUserCount - $userCountData');
+  }
+
+  callbackFunction(int time1, int time2) {
+    setState(() {
+      topPerf.clear();
+      listOfCity.clear();
+      ScansQRData.clear();
+      pieChartData.clear();
+      userCountData.clear();
+      print('$time1  $time2');
+      setInitialValues(time1, time2);
+    });
   }
 
   @override
@@ -132,8 +132,6 @@ class _Analytics1State extends State<Analytics1> {
     timestamp1 = int.parse(dateRelatedInfo[0]);
     timestamp2 = int.parse(dateRelatedInfo[1]);
     dropDownValueDate = dateRelatedInfo[2];
-    // print('$timestamp1 $timestamp2 $dropDownValue $dropDownValueDate');
-
     setInitialValues(timestamp1, timestamp2);
     super.initState();
   }
@@ -142,7 +140,7 @@ class _Analytics1State extends State<Analytics1> {
   Widget build(BuildContext context) {
     allOrientation();
     return Scaffold(
-      drawer: setDrawer(),
+      drawer: setDrawer(widget.logout),
       appBar: AppBar(
         title: Text("Analytics"),
         centerTitle: false,
@@ -157,37 +155,30 @@ class _Analytics1State extends State<Analytics1> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 SizedBox(height: 10),
-                setSelectedDate(dropDownValue, dropDownValueDate, items),
+                setSelectedDate(
+                    dropDownValue: dropDownValue,
+                    dropDownValueDate: dropDownValueDate,
+                    callbackFunction: callbackFunction),
                 SizedBox(height: 30),
                 setSelectLabel(),
                 SizedBox(height: 30),
-                setTopPerformance(
-                    topPerf,
-                    Theme.of(context).textTheme.headline1!,
-                    Theme.of(context).textTheme.bodyText1!),
+                SetTopPerformance(barGraphData: topPerf),
                 SizedBox(height: 30),
-                setScansByCity(
-                    listOfCity,
-                    Theme.of(context).textTheme.headline1!,
-                    Theme.of(context).textTheme.bodyText1!),
+                SetScanByCity(
+                    listOfCity: listOfCity,
+                    dropDownValueDate: dropDownValueDate),
                 SizedBox(height: 30),
-                setScans(
-                    ScansQRData,
-                    scanCount,
-                    Theme.of(context).textTheme.headline1!,
-                    Theme.of(context).textTheme.bodyText1!),
+                SetScans(
+                    scansQRData: ScansQRData,
+                    scanCount: scanCount,
+                    dropDownValueDate: dropDownValueDate),
                 SizedBox(height: 30),
-                setDevicesUsed(
-                    pieChartData,
-                    Theme.of(context).textTheme.headline1!,
-                    Theme.of(context).textTheme.headline3!,
-                    Theme.of(context).textTheme.bodyText1!),
+                SetDevicesUsed(
+                    pieChartData: pieChartData,
+                    dropDownValueDate: dropDownValueDate),
                 SizedBox(height: 30),
-                setUser(
-                    userCountData,
-                    TotalUserCount,
-                    Theme.of(context).textTheme.headline1!,
-                    Theme.of(context).textTheme.bodyText1!),
+                SetUser(
+                    userCountData: userCountData, TotalUserCount: userCount),
                 SizedBox(height: 30),
                 setScansByTimeOfDay(Theme.of(context).textTheme.headline1!),
                 SizedBox(height: 30),

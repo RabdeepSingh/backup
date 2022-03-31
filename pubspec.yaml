@@ -41,6 +41,8 @@ dependencies:
   syncfusion_flutter_charts: ^19.4.56
   splashscreen: ^1.3.5
   fluttertoast: ^8.0.9
+  csv: ^5.0.1
+  path_provider: ^2.0.9
 
 dev_dependencies:
   flutter_test:
