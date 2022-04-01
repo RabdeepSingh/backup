@@ -1,4 +1,4 @@
-import 'package:beaconstac_app/analytics1.dart';
+import 'package:beaconstac_app/analytics.dart';
 import 'package:beaconstac_app/services/auth_service.dart';
 
 import 'package:beaconstac_app/pages/login_page.dart';
@@ -25,7 +25,7 @@ class _HomepageState extends State<Homepage> {
         child: isBusy
             ? const CircularProgressIndicator()
             : isLoggedIn
-                ? Analytics1(logout)
+                ? Analytics(logout)
                 : Login(loginAction,
                     errorMessage == null ? "" : errorMessage as String),
       ),

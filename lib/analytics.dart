@@ -18,15 +18,15 @@ import 'package:beaconstac_app/logic/topPerforming.dart';
 import 'package:flutter/material.dart';
 import 'logic/subLogics/Orientation.dart';
 
-class Analytics1 extends StatefulWidget {
+class Analytics extends StatefulWidget {
   final logout;
-  Analytics1(this.logout);
+  Analytics(this.logout);
 
   @override
-  State<Analytics1> createState() => _Analytics1State();
+  State<Analytics> createState() => _AnalyticsState();
 }
 
-class _Analytics1State extends State<Analytics1> {
+class _AnalyticsState extends State<Analytics> {
   int timestamp1 = 0;
   int timestamp2 = 0;
 
