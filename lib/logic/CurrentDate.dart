@@ -11,7 +11,6 @@ List<String> setCurrentDate(String dropDownValue) {
           minutes: temp.minute,
           seconds: temp.second,
           microseconds: temp.microsecond));
-      date2 = temp;
       dropDownValueDate = '${date1.day}-${date1.month}-${date1.year}';
       break;
 
@@ -32,62 +31,45 @@ List<String> setCurrentDate(String dropDownValue) {
 
     case 'Last 7 days':
       date1 = temp.subtract(Duration(
-          days: 7,
+          days: 6,
           hours: temp.hour,
           minutes: temp.minute,
           seconds: temp.second,
           microseconds: temp.microsecond));
-      date2 = date2.subtract(Duration(days: 1));
-      date2 = date2.add(Duration(
-          hours: 24 - date2.hour - 1,
-          minutes: 60 - date2.minute - 1,
-          seconds: 60 - date2.second - 1));
       dropDownValueDate =
           '${date1.day}-${date1.month}-${date1.year} to ${date2.day}-${date2.month}-${date2.year}';
       break;
 
     case 'Last 30 days':
       date1 = temp.subtract(Duration(
-          days: 30,
+          days: 29,
           hours: temp.hour,
           minutes: temp.minute,
           seconds: temp.second,
           microseconds: temp.microsecond));
-      date2 = temp.subtract(Duration(days: 1));
-      date2 = date2.add(Duration(
-          hours: 24 - date2.hour - 1,
-          minutes: 60 - date2.minute - 1,
-          seconds: 60 - date2.second - 1));
       dropDownValueDate =
           '${date1.day}-${date1.month}-${date1.year} to ${date2.day}-${date2.month}-${date2.year}';
       break;
 
     case 'Last 90 days':
       date1 = temp.subtract(Duration(
-          days: 90,
+          days: 89,
           hours: temp.hour,
           minutes: temp.minute,
           seconds: temp.second,
           microseconds: temp.microsecond));
-      date2 = temp.subtract(Duration(days: 1));
-      date2 = date2.add(Duration(
-          hours: 24 - date2.hour - 1,
-          minutes: 60 - date2.minute - 1,
-          seconds: 60 - date2.second - 1));
       dropDownValueDate =
           '${date1.day}-${date1.month}-${date1.year} to ${date2.day}-${date2.month}-${date2.year}';
       break;
 
     case 'Lifetime':
       date1 = DateTime(2000);
-      date2 = temp;
       dropDownValueDate =
           '${date1.day}-${date1.month}-${date1.year} to ${date2.day}-${date2.month}-${date2.year}';
       break;
 
     case 'Custom':
       date1 = DateTime(1970);
-      date2 = temp;
       dropDownValueDate =
           '${date1.day}-${date1.month}-${date1.year} to ${date2.day}-${date2.month}-${date2.year}';
   }
